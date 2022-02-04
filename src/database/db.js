@@ -9,6 +9,12 @@ module.exports = db
 db.serialize(() => {
     
 //     //com comandos SQL eu vou:
+
+
+//      // 0 Dropar a tabela quando for inserir novos campos (não utilizar DROP em produção).  
+//    db.run(`
+//      DROP TABLE IF EXISTS places;
+//    `)
     
     
 //     // 1 Criar uma tabela
@@ -18,6 +24,7 @@ db.serialize(() => {
             image TEXT,
             name TEXT,
             address TEXT,
+            number TEXT,
             state TEXT,
             city TEXT,
             items TEXT     
@@ -30,17 +37,18 @@ db.serialize(() => {
             image,
             name,
             address,
+            number,
             state,
             city,
             items
-        ) VALUES (?,?,?,?,?,?);
+        ) VALUES (?,?,?,?,?,?,?);
     `
 
     const values = [
         "https://images.unsplash.com/photo-1567393528677-d6adae7d4a0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
         "Papersider",
         "Guilherme Gemballa, Jardim América",
-        "Santa Catarina",
+        "Santa Catarina, 199",
         "Rio do Sul",
         "Papéis e Papelão"
     ]
@@ -57,15 +65,15 @@ db.serialize(() => {
     db.run(query, values, afterInsertData) 
 
    
-    // //3 consultar os dados da tabela
-    // db.all(`SELECT * FROM places`, function(err, rows) {
-    //     if(err) {
-    //         return console.log(err)
-    //     }
+    //3 consultar os dados da tabela
+    db.all(`SELECT * FROM places`, function(err, rows) {
+        if(err) {
+            return console.log(err)
+        }
 
-    //     console.log("Aqui estão os seus registros: ")
-    //     console.log(rows)
-    // })
+        console.log("Aqui estão os seus registros: ")
+        console.log(rows)
+    })
 
 
 
